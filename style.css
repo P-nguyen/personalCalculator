@@ -7,6 +7,10 @@ h1{
     text-align: center;
     font-size: 2rem;
 }
+h3{
+    font-size: 1rem;
+    text-align: center;
+}
 
 #calculatorBody{
     width: 30vw;
