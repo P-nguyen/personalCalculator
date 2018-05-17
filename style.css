@@ -19,7 +19,7 @@ h1{
 }
 
 .button{
-    font-size: 10vh;
+    font-size: 7vw;
     text-align: center;
     width: 98%;
     height: 98%;
@@ -30,7 +30,7 @@ h1{
 
 #input{
     height: 20%;
-    font-size: 10vh;
+    font-size: 7vw;
     text-align: right;
     box-sizing: border-box;
     padding: 5%;
