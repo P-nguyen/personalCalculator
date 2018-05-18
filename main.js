@@ -9,13 +9,23 @@ function addEventhandlers() {
     $('.operators .button').on('click', handleOperator );
     $('.clearEntry .button').on('click', handleClearButtons );
     $('.equal .button').on('click', handleEqual );
+
+    $('#togglePemdas').on('click',toggleCalcState);
 }
 
 var input = [];
 var lastNumber = null;
 var lastOperator = null;
+var calcState = true;
 
-
+function toggleCalcState() {
+    calcState = !calcState;
+    if(calcState){
+        $('#togglePemdas').text('Linear')
+    }else {
+        $('#togglePemdas').text('Pemdas');
+    }
+}
 function resetCalculatorVariables() {
     input = [];
     lastOperator = null;
@@ -90,9 +100,11 @@ function handleEqual() {
         output = input[0]; // for display to update.
         }
     }else if(input.length > 1) {//if we have a long string of nums and operators.
-        //debugger;
-        //output = linearDoMath(output);
-        output = pemdasDoMath(output);
+        if(calcState){
+            output = linearDoMath(output);
+        }else{
+            output = pemdasDoMath(output);
+        }
         input = [output];
     }
     updateDisplay(output);
