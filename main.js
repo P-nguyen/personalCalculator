@@ -34,7 +34,7 @@ function resetCalculatorVariables() {
 }
 
 function isFloat(_inputNumStr){// checks to see if number is a float.
-    if(_inputNumStr === undefined){
+    if(isNaN(_inputNumStr)){
         return false;
     }
     _inputNumStr += 1; // adds 1 to string to make it 1.1
@@ -50,7 +50,7 @@ function handleNumbers() {
         resetCalculatorVariables();
     }
 
-    if (isFloat(input[lastInputIndex])&& isNaN(text)){
+    if (isFloat(input[lastInputIndex])&& isNaN(text)){ // if its an X / or something make sure this is false.
         //return if float and '.' is pressed.
         return;
     }else if(isNaN(input[lastInputIndex])){
@@ -99,7 +99,7 @@ function handleEqual() {
         input[0] = operatorLogic(input,lastOperator,lastNumber); // do math and store in input[0]
         output = input[0]; // for display to update.
         }
-    }else if(input.length > 1) {//if we have a long string of nums and operators.
+    }else if(input.length > 2) {//if we have a long string of nums and operators.
         if(calcState){
             output = linearDoMath(output);
         }else{
