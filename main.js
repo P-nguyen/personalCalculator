@@ -9,7 +9,6 @@ function addEventhandlers() {
     $('.operators .button').on('click', handleOperator );
     $('.clearEntry .button').on('click', handleClearButtons );
     $('.equal .button').on('click', handleEqual );
-
     $('#togglePemdas').on('click',toggleCalcState);
 }
 
@@ -26,6 +25,7 @@ function toggleCalcState() {
         $('#togglePemdas').text('Pemdas');
     }
 }
+
 function resetCalculatorVariables() {
     calcInput = [];
     lastOperator = null;
@@ -46,18 +46,15 @@ function handleNumbers() {
     var lastInputIndex = calcInput.length-1;
 
     if(typeof calcInput[calcInput.length-1] === 'number') {
-        //this checks to see if you already done an equal and resets for a new number.
-        resetCalculatorVariables();
+        resetCalculatorVariables(); //this checks to see if you already done an equal and resets for a new number.
     }
 
     if (isFloat(calcInput[lastInputIndex])&& isNaN(text)){ // if its an X / or something make sure this is false.
-        //return if float and '.' is pressed.
-        return;
-    }else if(isNaN(calcInput[lastInputIndex])){
-        //checks for operator.
+        return; //return if float and '.' is pressed.
+    }else if(isNaN(calcInput[lastInputIndex])){ //checks for operator.
+
         if(text === '.'){
-            //safety net for '.'
-            text = '0.'
+            text = '0.';  //safety net for '.'
         }
         calcInput.push(text);
     }else if (calcInput[lastInputIndex].length > 0){
@@ -92,14 +89,9 @@ function handleClearButtons() {
 function handleEqual() {
     var result;
 
-    if (calcInput.length === 0 || result === NaN) {
+    if (calcInput.length === 0) {
         result = 'Ready';
-    // }else if(calcInput.length <= 2){//needs to check for [1,+]
-    //     if(lastNumber && lastOperator){
-    //     calcInput[0] = operatorLogic(calcInput,lastOperator,lastNumber); // do math and store in calcInput[0]
-    //     output = calcInput[0]; // for display to update.
-    //     }
-    }else{ // if(calcInput.length >= 2) {//if we have a long string of nums and operators.
+    }else{
         if(calcState){
             result = linearDoMath();
         }else{
@@ -167,9 +159,6 @@ function operatorLogic(_inputNum1, _operator, _inputNum2) {
             break;
         case '÷':
             output = num1 / num2;
-            if(output === Infinity){
-                output = 'sys error'
-            }
             break;
     }
     return output;
@@ -177,7 +166,11 @@ function operatorLogic(_inputNum1, _operator, _inputNum2) {
 
 function updateDisplay(_textToUpdate) {
     var inputText = _textToUpdate ? _textToUpdate : calcInput[calcInput.length-1];
-    $('#calcInput').text(inputText);
+    if(inputText === Infinity){
+        inputText = 'sys error'
+    }
+    $('#input').text(inputText);
+
     if (calcInput.length !== 0){
         inputText = calcInput.join(' ');
     }
