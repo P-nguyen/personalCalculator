@@ -13,7 +13,7 @@ function addEventhandlers() {
     $('#togglePemdas').on('click',toggleCalcState);
 }
 
-var input = [];
+var calcInput = [];
 var lastNumber = null;
 var lastOperator = null;
 var calcState = true;
@@ -27,7 +27,7 @@ function toggleCalcState() {
     }
 }
 function resetCalculatorVariables() {
-    input = [];
+    calcInput = [];
     lastOperator = null;
     lastNumber = null;
 
@@ -43,39 +43,39 @@ function isFloat(_inputNumStr){// checks to see if number is a float.
 
 function handleNumbers() {
     var text = $(this).text();
-    var lastInputIndex = input.length-1;
+    var lastInputIndex = calcInput.length-1;
 
-    if(typeof input[input.length-1] === 'number') {
+    if(typeof calcInput[calcInput.length-1] === 'number') {
         //this checks to see if you already done an equal and resets for a new number.
         resetCalculatorVariables();
     }
 
-    if (isFloat(input[lastInputIndex])&& isNaN(text)){ // if its an X / or something make sure this is false.
+    if (isFloat(calcInput[lastInputIndex])&& isNaN(text)){ // if its an X / or something make sure this is false.
         //return if float and '.' is pressed.
         return;
-    }else if(isNaN(input[lastInputIndex])){
+    }else if(isNaN(calcInput[lastInputIndex])){
         //checks for operator.
         if(text === '.'){
             //safety net for '.'
             text = '0.'
         }
-        input.push(text);
-    }else if (input[lastInputIndex].length > 0){
-            input[lastInputIndex] += text;
+        calcInput.push(text);
+    }else if (calcInput[lastInputIndex].length > 0){
+            calcInput[lastInputIndex] += text;
     }
     updateDisplay();
 }
 
 function handleOperator(){
     var text = $(this).text();
-    if(input.length === 0){
+    if(calcInput.length === 0){
         return
-    }else if(isNaN(input[input.length-1])){
-        input.pop();
+    }else if(isNaN(calcInput[calcInput.length-1])){
+        calcInput.pop();
     }
-    input.push(text);
+    calcInput.push(text);
     lastOperator = text;
-    lastNumber = input[0];
+    lastNumber = calcInput[0];
     updateDisplay();
 }
 
@@ -84,58 +84,71 @@ function handleClearButtons() {
     if(text === 'C'){
         resetCalculatorVariables();
     }else{
-        input.pop();
+        calcInput.pop();
     }
     updateDisplay('0');
 }
 
 function handleEqual() {
-    var output = input[0];
+    var result;
 
-    if (input.length === 0 || input[0] === NaN) {
-        output = 'Ready';
-    }else if(input.length <= 2){//needs to check for [1,+]
-        if(lastNumber && lastOperator){
-        input[0] = operatorLogic(input,lastOperator,lastNumber); // do math and store in input[0]
-        output = input[0]; // for display to update.
-        }
-    }else if(input.length > 2) {//if we have a long string of nums and operators.
+    if (calcInput.length === 0 || result === NaN) {
+        result = 'Ready';
+    // }else if(calcInput.length <= 2){//needs to check for [1,+]
+    //     if(lastNumber && lastOperator){
+    //     calcInput[0] = operatorLogic(calcInput,lastOperator,lastNumber); // do math and store in calcInput[0]
+    //     output = calcInput[0]; // for display to update.
+    //     }
+    }else{ // if(calcInput.length >= 2) {//if we have a long string of nums and operators.
         if(calcState){
-            output = linearDoMath(output);
+            result = linearDoMath();
         }else{
-            output = pemdasDoMath(output);
+            result = pemdasDoMath();
         }
-        input = [output];
+        calcInput = [result];
     }
-    updateDisplay(output);
+    updateDisplay(result);
 }
 
-function linearDoMath(_output){
-    for (var i = 1; i < input.length - 1; i += 2) {
-        _output = operatorLogic(_output, input[i], input[i + 1]);
-        if(isNaN(input[input.length-1])){
-            lastNumber = operatorLogic(_output, lastOperator, _output);
-            _output = lastNumber;
-        }else{
-            lastNumber = input[i+1];
+function linearDoMath(){
+    var result = calcInput[0];
+    var num2;
+    var operator = lastOperator;
+
+    for (var i = 1; i < calcInput.length || lastOperator != null; i += 2) {
+
+        operator = calcInput[i];
+        num2 = calcInput[i+1];
+
+        if(!operator && !num2){
+            operator = lastOperator;
+            num2 = lastNumber;
+        }else if(!num2){
+            num2 = result;
         }
+
+        result = operatorLogic(result, operator, num2);
+        lastNumber = num2;
+        lastOperator = null;
     }
-    return _output
+    lastOperator = operator; // = +
+    return result
 }
 
-function pemdasDoMath(_output){
-    var pemdasMath;
+function pemdasDoMath(){
+    var replaceMathVar;
+    var result;
     var i = 1;
-    while(i < input.length){
-        if( input[i] === 'x' || input[i] === '÷'){
-            pemdasMath = operatorLogic( input[i-1],input[i],input[i+1] )
-            input.splice(i-1, 3,pemdasMath);
+    while(i < calcInput.length){
+        if( calcInput[i] === 'x' || calcInput[i] === '÷'){
+            replaceMathVar = operatorLogic( calcInput[i-1],calcInput[i],calcInput[i+1] )
+            calcInput.splice(i-1, 3,replaceMathVar);
             i = 1;
         }
         i+=2;
     }
-    _output = linearDoMath(input[0]);
-    return _output;
+    result = linearDoMath(calcInput[0]);
+    return result;
 }
 
 function operatorLogic(_inputNum1, _operator, _inputNum2) {
@@ -163,10 +176,10 @@ function operatorLogic(_inputNum1, _operator, _inputNum2) {
 }
 
 function updateDisplay(_textToUpdate) {
-    var inputText = _textToUpdate ? _textToUpdate : input[input.length-1];
-    $('#input').text(inputText);
-    if (input.length !== 0){
-        inputText = input.join(' ');
+    var inputText = _textToUpdate ? _textToUpdate : calcInput[calcInput.length-1];
+    $('#calcInput').text(inputText);
+    if (calcInput.length !== 0){
+        inputText = calcInput.join(' ');
     }
     $('h3').text(inputText);
 }
