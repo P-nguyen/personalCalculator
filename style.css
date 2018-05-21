@@ -100,3 +100,7 @@ h3{
 .clear .button, .clearEntry .button{
     background-color: #d6d6d6;
 }
+
+.button:hover{
+    color: orangered;
+}
