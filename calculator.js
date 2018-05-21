@@ -62,12 +62,15 @@ class Calculator {
     }
 
     handleClearButtons(_input) {
+        var result;
         if (_input === 'C') {
             this.resetCalculatorVariables();
+            result = ['0']
         } else {
             this.calcInput.pop();
+            result = this.calcInput
         }
-        return ['0']
+        return result;
     }
 
     handleEqual() {
