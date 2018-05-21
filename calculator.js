@@ -13,12 +13,77 @@ class Calculator {
 
     }
 
+    toggleCalcState() {
+        this.calcState = !this.calcState;
+        if (this.calcState) {
+            $('#togglePemdas').text('Linear')
+        } else {
+            $('#togglePemdas').text('Pemdas');
+        }
+    }
+
     isFloat(_inputNumStr) {// checks to see if number is a float.
         if (isNaN(_inputNumStr)) {
             return false;
         }
         _inputNumStr += 1; // adds 1 to string to make it 1.1
         return _inputNumStr % 1 !== 0;//checks to see if 1.1 is a float.
+    }
+
+    handleNumbers(_input) {
+        var lastInputIndex = this.calcInput.length - 1;
+
+        if (typeof this.calcInput[this.calcInput.length - 1] === 'number') {
+            this.resetCalculatorVariables(); //this checks to see if you already done an equal and resets for a new number.
+        }
+
+        if (this.isFloat(this.calcInput[lastInputIndex]) && isNaN(_input)) { // if its an X / or something make sure this is false.
+            return; //return if float and '.' is pressed.
+        } else if (isNaN(this.calcInput[lastInputIndex])) { //checks for operator.
+
+            if (_input === '.') {
+                _input = '0.';  //safety net for '.'
+            }
+            this.calcInput.push(_input);
+        } else if (this.calcInput[lastInputIndex].length > 0) {
+            this.calcInput[lastInputIndex] += _input;
+        }
+        return this.calcInput;
+    }
+
+    handleOperator(_input) {
+        if (this.calcInput.length === 0) {
+            return
+        } else if (isNaN(this.calcInput[this.calcInput.length - 1])) {
+            this.calcInput.pop();
+        }
+        this.calcInput.push(_input);
+        return this.calcInput;
+    }
+
+    handleClearButtons(_input) {
+        if (_input === 'C') {
+            this.resetCalculatorVariables();
+        } else {
+            this.calcInput.pop();
+        }
+        return ['0']
+    }
+
+    handleEqual() {
+        var result;
+
+        if (this.calcInput.length === 0) {
+            result = 'Ready';
+        } else {
+            if (this.calcState) {
+                result = this.linearDoMath();
+            } else {
+                result = this.pemdasDoMath();
+            }
+            this.calcInput = [result];
+        }
+        return result;
     }
 
 
@@ -39,11 +104,11 @@ class Calculator {
                 num2 = result;
             }
 
-            result = operatorLogic(result, operator, num2);
+            result = this.operatorLogic(result, operator, num2);
             this.lastNumber = num2;
             this.lastOperator = null;
         }
-        this.lastOperator = operator; // = +
+        this.lastOperator = operator;
         return result
     }
 
@@ -53,13 +118,13 @@ class Calculator {
         var i = 1;
         while (i < this.calcInput.length) {
             if (this.calcInput[i] === 'x' || this.calcInput[i] === '÷') {
-                replaceMathVar = operatorLogic(this.calcInput[i - 1], this.calcInput[i], this.calcInput[i + 1]);
+                replaceMathVar = this.operatorLogic(this.calcInput[i - 1], this.calcInput[i], this.calcInput[i + 1]);
                 this.calcInput.splice(i - 1, 3, replaceMathVar);
                 i = 1;
             }
             i += 2;
         }
-        result = linearDoMath(this.calcInput[0]);
+        result = this.linearDoMath(this.calcInput[0]);
         return result;
     }
 
