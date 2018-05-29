@@ -6,7 +6,7 @@ class Controller {
 
     handleInput(_textInput){
         var result;
-        if(!isNaN(_textInput) || _textInput === '.'){
+        if(!isNaN(_textInput) || _textInput === '.'){ // takes in '.' with numbers.
             result = this.calculator.handleNumbers(_textInput);
             this.view.updateDisplay(result);
         }else if(isNaN(_textInput)){//operator
