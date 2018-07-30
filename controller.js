@@ -1,7 +1,6 @@
 class Controller {
     constructor() {
         this.calculator = new Calculator();
-        this.view = new View();
 
         this.handleNumbers = this.handleNumbers.bind(this);
         this.handleOperator = this.handleOperator.bind(this);
@@ -51,18 +50,16 @@ class Controller {
     handleInput(_textInput){
         var result;
         if(!isNaN(_textInput) || _textInput === '.'){ // takes in '.' with numbers.
-            result = this.calculator.handleNumbers(_textInput);
-            this.view.updateDisplay(result);
+            this.calculator.handleNumbers(_textInput);
         }else if(isNaN(_textInput)){//operator
 
             if(_textInput === 'C' || _textInput ==='CE'){
-                result = this.calculator.handleClearButtons(_textInput);
+                this.calculator.handleClearButtons(_textInput);
             }else if(_textInput === '=') {
-                result = this.calculator.handleEqual(_textInput);
+                this.calculator.handleEqual(_textInput);
             }else{
-                result = this.calculator.handleOperator(_textInput);
+                this.calculator.handleOperator(_textInput);
             }
-            this.view.updateDisplay(result);
         }
     }
 

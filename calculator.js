@@ -1,5 +1,7 @@
 class Calculator {
     constructor() {
+        this.view = new View();
+
         this.calcInput = [];
         this.lastNumber = null;
         this.lastOperator = null;
@@ -48,7 +50,7 @@ class Calculator {
         } else if (this.calcInput[lastInputIndex].length > 0) {
             this.calcInput[lastInputIndex] += _input;
         }
-        return this.calcInput;
+        return this.view.updateDisplay(this.calcInput);
     }
 
     handleOperator(_input) {
@@ -58,7 +60,7 @@ class Calculator {
             this.calcInput.pop();
         }
         this.calcInput.push(_input);
-        return this.calcInput;
+        return this.view.updateDisplay(this.calcInput);        
     }
 
     handleClearButtons(_input) {
@@ -70,7 +72,7 @@ class Calculator {
             this.calcInput.pop();
             result = this.calcInput
         }
-        return result;
+        return this.view.updateDisplay(result);
     }
 
     handleEqual() {
@@ -86,7 +88,7 @@ class Calculator {
             }
             this.calcInput = [result];
         }
-        return result;
+        return this.view.updateDisplay(result);
     }
 
 
