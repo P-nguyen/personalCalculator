@@ -14,12 +14,12 @@ class View{
         if(inputText === Infinity){
             inputText = 'sys error'
         }
-        $('#input').text(inputText);
+        document.getElementById('input').innerHTML = inputText;
 
         //updates full line under linear/pemdas
         if (_textToUpdate.length ? _textToUpdate.length : 0 !== 0 && Array.isArray(_textToUpdate)){
             inputText = _textToUpdate.join(' ');
-            $('h3').text(inputText);
+            document.getElementById('inputDisplay').innerHTML = inputText;
         }
 
     }

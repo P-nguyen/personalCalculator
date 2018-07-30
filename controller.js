@@ -7,23 +7,40 @@ class Controller {
         this.handleClearButtons = this.handleClearButtons.bind(this);
         this.handleEqual = this.handleEqual.bind(this);
         this.toggleCalcState = this.toggleCalcState.bind(this);
-        this.initializeCalc();
+        // this.initializeCalc();
+        this.addEventhandlers();
     }
 
-    initializeCalc() {
-        $(document).ready(this.addEventhandlers.bind(this));
+    // initializeCalc() {
+    //     $(document).ready(this.addEventhandlers.bind(this));
+    // }
+
+    addEventToMultiElements( domElements, Func ){
+        for (let i = 0; i<domElements.length; i++){
+            domElements[i].addEventListener("click", Func);
+        }
+
     }
 
     addEventhandlers() {
-        $('.numbers .button').on('click', this.handleNumbers);
-        $('.operators .button').on('click', this.handleOperator);
-        $('.clearEntry .button').on('click', this.handleClearButtons);
-        $('.equal .button').on('click', this.handleEqual);
-        $('#togglePemdas').on('click', this.toggleCalcState);
+        let numbers = document.querySelectorAll('.numbers .button');
+        this.addEventToMultiElements(numbers, this.handleNumbers);
+
+        let operators = document.querySelectorAll('.operators .button');
+        this.addEventToMultiElements(operators, this.handleOperator);
+
+        let clearEntry = document.querySelectorAll('.clearEntry .button');
+        this.addEventToMultiElements(clearEntry, this.handleClearButtons);
+
+        let equal = document.querySelectorAll('.equal .button');
+        this.addEventToMultiElements(equal, this.handleEqual);
+
+        document.getElementById('togglePemdas').addEventListener("click", this.toggleCalcState);
+
     }
 
     toggleCalcState() {
-        this.handleToggle();
+        this.calculator.toggleCalcState();
     }
 
     handleNumbers(event) {
@@ -61,10 +78,6 @@ class Controller {
                 this.calculator.handleOperator(_textInput);
             }
         }
-    }
-
-    handleToggle(){
-        this.calculator.toggleCalcState();
     }
 
 }

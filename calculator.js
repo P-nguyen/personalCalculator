@@ -18,9 +18,9 @@ class Calculator {
     toggleCalcState() {
         this.calcState = !this.calcState;
         if (this.calcState) {
-            $('#togglePemdas').text('Linear')
+            document.getElementById('togglePemdas').innerHTML = 'Linear';
         } else {
-            $('#togglePemdas').text('Pemdas');
+            document.getElementById('togglePemdas').innerHTML = 'Pemdas';
         }
     }
 
