@@ -7,13 +7,9 @@ class Controller {
         this.handleClearButtons = this.handleClearButtons.bind(this);
         this.handleEqual = this.handleEqual.bind(this);
         this.toggleCalcState = this.toggleCalcState.bind(this);
-        // this.initializeCalc();
         this.addEventhandlers();
     }
 
-    // initializeCalc() {
-    //     $(document).ready(this.addEventhandlers.bind(this));
-    // }
 
     addEventToMultiElements( domElements, Func ){
         for (let i = 0; i<domElements.length; i++){
