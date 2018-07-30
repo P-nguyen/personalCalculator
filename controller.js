@@ -37,6 +37,7 @@ class Controller {
 
     toggleCalcState() {
         this.calculator.toggleCalcState();
+
     }
 
     handleNumbers(event) {

@@ -1,5 +1,13 @@
 class View{
 
+    toggleMath(state){
+        if (state) {
+            document.getElementById('togglePemdas').innerHTML = 'Linear';
+        } else {
+            document.getElementById('togglePemdas').innerHTML = 'Pemdas';
+        }
+    }
+
     updateDisplay(_textToUpdate) {
         var inputText = _textToUpdate;
 

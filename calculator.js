@@ -17,11 +17,7 @@ class Calculator {
 
     toggleCalcState() {
         this.calcState = !this.calcState;
-        if (this.calcState) {
-            document.getElementById('togglePemdas').innerHTML = 'Linear';
-        } else {
-            document.getElementById('togglePemdas').innerHTML = 'Pemdas';
-        }
+        this.view.toggleMath(this.calcState);
     }
 
     isFloat(_inputNumStr) {// checks to see if number is a float.
