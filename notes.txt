@@ -1,0 +1,11 @@
+display log with clickable history.
+responsiveness.
+add in multiplication symbol
+scientific operations have expoenets and log going first.
+add in ().
+sqrt and sq button
+
+infinity / infinity.
+consistent error.
+
+fix number length
