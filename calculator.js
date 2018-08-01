@@ -71,6 +71,7 @@ class Calculator {
         return this.view.updateDisplay(result);
     }
 
+    //will always do math.
     handleEqual() {
         var result;
 
@@ -89,6 +90,7 @@ class Calculator {
 
 
     linearDoMath() {
+        // debugger;
         var result = this.calcInput[0];
         var num2;
         var operator = this.lastOperator;
@@ -116,8 +118,12 @@ class Calculator {
     pemdasDoMath() {
         var replaceMathVar;
         var result;
+        var num2;
+        var operator = this.lastOperator;
+
         var i = 1;
-        while (i < this.calcInput.length) {
+        //this loop will do all calcs first.
+        while (i < this.calcInput.length && this.calcInput.length >2) {
             if (this.calcInput[i] === 'x' || this.calcInput[i] === '÷') {
                 replaceMathVar = this.operatorLogic(this.calcInput[i - 1], this.calcInput[i], this.calcInput[i + 1]);
                 this.calcInput.splice(i - 1, 3, replaceMathVar);
@@ -128,6 +134,11 @@ class Calculator {
         result = this.linearDoMath(this.calcInput[0]);
         return result;
     }
+
+    doMath(){
+        console.log('test');
+    }
+    //1+2 x = 5
 
     operatorLogic(_inputNum1, _operator, _inputNum2) {
         var output;
