@@ -75,16 +75,6 @@ class Calculator {
     handleEqual() {
         var result;
 
-        // if (this.calcInput.length === 0) {
-        //     result = 'Ready';
-        // } else {
-        //     if (this.calcState) {
-        //         result = this.linearDoMath();
-        //     } else {
-        //         result = this.pemdasDoMath();
-        //     }
-        //     this.calcInput = [result];
-        // }
         this.doMath()
         return this.view.updateDisplay(this.calcInput[0]);
     }
