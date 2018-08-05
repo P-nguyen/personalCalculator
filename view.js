@@ -27,7 +27,7 @@ class View{
         //updates full line under linear/pemdas
         if (_textToUpdate.length ? _textToUpdate.length : 0 !== 0 && Array.isArray(_textToUpdate)){
             inputText = _textToUpdate.join(' ');
-            document.getElementById('inputDisplay').innerHTML = inputText;
+            document.getElementsByClassName('inputDisplayText')[0].innerHTML = inputText;
         }
 
     }
