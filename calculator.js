@@ -130,6 +130,11 @@ class Calculator {
     //2+(2x3) = 8 = 48 ===== it used 6x
     //need to clear lastnumber and operatorer if new input is pressed. //DONE?
 
+    checkParenthesis(){
+        //look through array
+        //if left( is found then look for right) and do math here first and replace.
+    }
+
     doMath(){
         //()
             //order of operations

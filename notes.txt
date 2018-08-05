@@ -11,3 +11,26 @@ consistent error.
 fix number length
 add in portfolio request
 https://docs.google.com/document/d/e/2PACX-1vSWDHcDME6DLYzuzSU-6Y-azG1DUXNtkzlfhmUTkmwrp1aue41fw8wwR5vIIBvRRpmURGw5KFIunGcS/pub
+
+
+
+x!
+ln - e to the x
+log - 10 to the x
+sqroot - x 2
+x to the y - y sqroot to the x
+
+
+sin to inverse sin
+cos to inverse cos
+tan to inverse tan
+
+pie
+e = euler's number - math constant
+
+
+
+sin / sin-1 / ln / eX
+cos / cos -1 / log / 10x
+tan / tan-1 / sqroot / X2
+pie / e / x! / y-sqrt-x
