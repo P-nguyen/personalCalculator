@@ -6,7 +6,8 @@ class Controller {
         this.handleOperator = this.handleOperator.bind(this);
         this.handleClearButtons = this.handleClearButtons.bind(this);
         this.handleEqual = this.handleEqual.bind(this);
-        this.toggleCalcState = this.toggleCalcState.bind(this);
+        // this.toggleCalcState = this.toggleCalcState.bind(this);
+        this.handleAdvance = this.handleAdvance.bind(this);
         this.addEventhandlers();
     }
 
@@ -31,7 +32,10 @@ class Controller {
         let equal = document.querySelectorAll('.equal .button');
         this.addEventToMultiElements(equal, this.handleEqual);
 
-        document.getElementById('togglePemdas').addEventListener("click", this.toggleCalcState);
+        let advance = document.querySelectorAll('.extended .button');
+        this.addEventToMultiElements(advance, this.handleAdvance);
+
+        // document.getElementById('togglePemdas').addEventListener("click", this.toggleCalcState);
 
     }
 
@@ -60,6 +64,10 @@ class Controller {
         this.handleInput(text);
     }
 
+    handleAdvance(){
+        var text = event.currentTarget.innerText;
+        this.handleInput(text);
+    }
 
     handleInput(_textInput){
         var result;
@@ -71,8 +79,11 @@ class Controller {
                 this.calculator.handleClearButtons(_textInput);
             }else if(_textInput === '=') {
                 this.calculator.handleEqual(_textInput);
-            }else{
+            }else if(_textInput === '÷' || _textInput === 'x' || _textInput === '-' || _textInput === '+'){
                 this.calculator.handleOperator(_textInput);
+            }else{
+                console.log('here');
+                this.calculator.handleAdvanceFeatures(_textInput);
             }
         }
     }
