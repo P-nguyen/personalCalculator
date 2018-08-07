@@ -79,11 +79,12 @@ class Calculator {
         //need to check type
         let result;
 
-        if (parseFloat(this.calcInput[this.calcInput.length-1])) {
+        if ( !isNaN(parseFloat(this.calcInput[this.calcInput.length-1])) ) {
             result = this.AdvanceFeatureOperation(_input);
             this.calcInput[this.calcInput.length-1] = result;
         }else{
-            result = 'yay';
+            result = this.AdvanceFeatureOperation(_input);
+            this.calcInput.push(result);
         }
         // this.calcInput.push(_input);
         return this.view.updateDisplay(this.calcInput);   
@@ -112,6 +113,19 @@ class Calculator {
     linearDoMath() {
         var i = 1;
 
+        if (this.lastNumber == null && this.lastOperator === null){
+            if( parseFloat(this.calcInput[this.calcInput.length-1])){
+                //if this ends in the number / then don't worry about it.
+                this.lastNumber = this.calcInput[this.calcInput.length-1];
+                this.lastOperator = this.calcInput[this.calcInput.length-2];
+            }else{
+                //if this ends in an operator then push the number to the end.
+                this.lastNumber = this.calcInput[this.calcInput.length-2];
+                this.lastOperator = this.calcInput[this.calcInput.length-1];
+            }   
+        }       
+
+
         //this needs to check for 3x or 3- or 3+ as well
         if (this.calcInput.length === 1){
             this.calcInput.push(this.lastOperator,this.lastNumber);
@@ -124,37 +138,57 @@ class Calculator {
             let operator = this.calcInput[i];
             let secondNum = this.calcInput[i+1]; //this should only apply if you hit ='s again. otherwise its taken care of in in multiplications.
 
-            let replaceMathVar = this.operatorLogic(this.calcInput[i - 1], this.calcInput[i], secondNum);
+            let replaceMathVar = this.operatorLogic(this.calcInput[i - 1], operator, secondNum);
             this.calcInput.splice(i - 1, 3, replaceMathVar);
     
         }
     }
 
     pemdasDoMath() {
-        //check the last two numbers.
+        
+        //check the last two numbers after all pemdas math is done.
         if (this.lastNumber == null && this.lastOperator === null){
             if( parseFloat(this.calcInput[this.calcInput.length-1])){
+                //if this ends in the number / then don't worry about it.
                 this.lastNumber = this.calcInput[this.calcInput.length-1];
                 this.lastOperator = this.calcInput[this.calcInput.length-2];
-            }else{
-                this.lastNumber = this.calcInput[this.calcInput.length-2];
-                this.lastOperator = this.calcInput[this.calcInput.length-1];
             }
+            // else{
+            //     //if this ends in an operator then push the number to the end.
+            //     this.lastNumber = this.calcInput[this.calcInput.length-2];
+            //     this.lastOperator = this.calcInput[this.calcInput.length-1];
+            //     this.calcInput.push(this.lastNumber);
+            // }
         }
-        
-        //store for ='s we only care about after ()'s the last number. if its an operators then save the one before.
+
         var i = 1;
-        while(i < this.calcInput.length-1){
+        while(i <= this.calcInput.length-1){
             if(this.calcInput[i] === 'x' || this.calcInput[i] === '÷'){
-                let secondNum = this.calcInput[i+1] ? this.calcInput[i+1] : this.calcInput[i-1];
+                let secondNum = this.calcInput[i+1] ? this.calcInput[i+1] : this.lastNumber = this.calcInput[i-1];
+                if(this.calcInput[i+1]){
+                    secondNum = this.calcInput[i+1];
+                }else{
+                    secondNum = this.calcInput[i-1];
+                    this.lastNumber = secondNum;
+                    this.lastOperator = this.calcInput[i];
+                }
+
                 let replaceMathVar = this.operatorLogic(this.calcInput[i - 1], this.calcInput[i], secondNum);
                 this.calcInput.splice(i - 1, 3, replaceMathVar);
                 i = 1;
             }
             i +=2;
         }
+
+        
+
+        // if(this.lastOperator === 'x' || this.lastOperator === '÷'){
+        //     let replaceMathVar = this.operatorLogic(this.calcInput[this.calcInput.length - 2], this.lastOperator, this.lastNumber);
+        //     this.calcInput.splice(this.calcInput.length - 2, 2, replaceMathVar);
+        // }
     }
 
+    //1+2x3+ = 14 because 1+2x3 = 7 then the + adds another 7.
     //["1", "+", "2", "x", "3", "+", "6", "x", "6"] = 43 = 258 ==== 6x
     //2+(2x3) = 8 = 48 ===== it used 6x
     //need to clear lastnumber and operatorer if new input is pressed. //DONE?
@@ -167,11 +201,15 @@ class Calculator {
     doMath(){
         //()
             //order of operations
-
+        
         //order of operations
-        this.pemdasDoMath();
+        debugger;
+        if(this.calcInput.length > 3){
+            this.pemdasDoMath();
+        }
         debugger;
         this.linearDoMath();
+        
         //the rest of the operators
         debugger;
  
