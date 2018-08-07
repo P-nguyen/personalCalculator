@@ -71,9 +71,38 @@ class Calculator {
         return this.view.updateDisplay(result);
     }
 
+
+    handleAdvanceFeatures(_input){
+
+        //if operator then add
+        //if number the change output.
+        //need to check type
+        let result;
+
+        if (parseFloat(this.calcInput[this.calcInput.length-1])) {
+            result = this.AdvanceFeatureOperation(_input);
+            this.calcInput[this.calcInput.length-1] = result;
+        }else{
+            result = 'yay';
+        }
+        // this.calcInput.push(_input);
+        return this.view.updateDisplay(this.calcInput);   
+    }
+
+    AdvanceFeatureOperation(_type){
+        let output;
+
+        switch (_type) {
+            case 'e':
+                output = Math.E;
+                break;
+        }
+
+        return output;
+    } 
+
     //will always do math.
     handleEqual() {
-        var result;
 
         this.doMath()
         return this.view.updateDisplay(this.calcInput[0]);
