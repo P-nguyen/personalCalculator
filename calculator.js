@@ -80,7 +80,7 @@ class Calculator {
         let result;
 
         if ( !isNaN(parseFloat(this.calcInput[this.calcInput.length-1])) ) {
-            result = this.AdvanceFeatureOperation(_input);
+            result = this.AdvanceFeatureOperation(_input, this.calcInput[this.calcInput.length-1] );
             this.calcInput[this.calcInput.length-1] = result;
         }else{
             result = this.AdvanceFeatureOperation(_input);
@@ -90,13 +90,34 @@ class Calculator {
         return this.view.updateDisplay(this.calcInput);   
     }
 
-    AdvanceFeatureOperation(_type){
+    AdvanceFeatureOperation(_type , _number){
         let output;
-
         switch (_type) {
             case 'e':
                 output = Math.E;
                 break;
+            case '∏':
+                output = Math.PI;
+                break;
+            case 'sin':
+                output = Math.sin(_number);
+                break;
+            case 'cos':
+                output = Math.cos(_number);
+                break;
+            case 'tan':
+                output = Math.tan(_number);
+                break;
+            case 'sin-1':
+                output = Math.asin(_number);
+                break;
+            case 'cos-1':
+                output = Math.acos(_number);
+                break;
+            case 'tan-1':
+                output = Math.atan(_number);
+                break;
+
         }
 
         return output;
@@ -188,7 +209,7 @@ class Calculator {
         // }
     }
 
-    //1+2x3+ = 14 because 1+2x3 = 7 then the + adds another 7.
+    //1+2x3+ = 14 because 1+2x3 = 7 then the + adds another 7. !!! if your add  at the end its needs to add all of it.....
     //["1", "+", "2", "x", "3", "+", "6", "x", "6"] = 43 = 258 ==== 6x
     //2+(2x3) = 8 = 48 ===== it used 6x
     //need to clear lastnumber and operatorer if new input is pressed. //DONE?
