@@ -66,6 +66,7 @@ class Controller {
 
     handleAdvance(){
         var text = event.currentTarget.innerText;
+        text = text.replace( /\r?\n|\r/g , '');
         this.handleInput(text);
     }
 
@@ -82,7 +83,6 @@ class Controller {
             }else if(_textInput === '÷' || _textInput === 'x' || _textInput === '-' || _textInput === '+'){
                 this.calculator.handleOperator(_textInput);
             }else{
-                console.log('here');
                 this.calculator.handleAdvanceFeatures(_textInput);
             }
         }
