@@ -99,6 +99,16 @@ class Calculator {
             case '∏':
                 output = Math.PI;
                 break;
+            case '√':
+                output = Math.sqrt(_number);
+                break;
+            case 'log':
+                //base of 10
+                output = Math.log(_number) / Math.log(10);
+                break;
+            case 'ln':
+                output = Math.log(_number);
+                break;
             case 'sin':
                 output = Math.sin(_number);
                 break;
@@ -117,6 +127,7 @@ class Calculator {
             case 'tan-1':
                 output = Math.atan(_number);
                 break;
+                
 
         }
 
