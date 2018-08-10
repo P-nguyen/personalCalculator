@@ -127,8 +127,23 @@ class Calculator {
             case 'tan-1':
                 output = Math.atan(_number);
                 break;
-                
-
+            case 'ex':
+                output = Math.exp(_number);
+                break;
+            case '10x':
+                output = 10;
+                for(let i = 1; i < _number; i++ ){ output *= 10 }
+                break;
+            case 'X2':
+                output = _number * _number;
+                break;
+            case 'x!': //factorials
+                output = _number;
+                for(let i = _number-1; i >= 1; i--){ output *= i}
+                break;
+            case '3√x':
+                output = Math.pow(_number, 1/3);
+                break;
         }
 
         return output;
