@@ -1,14 +1,18 @@
 class View{
-
-    toggleMath(state){
-        if (state) {
-            document.getElementById('togglePemdas').innerHTML = 'Linear';
-        } else {
-            document.getElementById('togglePemdas').innerHTML = 'Pemdas';
-        }
+    constructor(){
+        this.inputDisplay = [];
+        this.currentIndex = 0;
     }
 
-    updateDisplay(_textToUpdate) {
+    // toggleMath(state){
+    //     if (state) {
+    //         document.getElementById('togglePemdas').innerHTML = 'Linear';
+    //     } else {
+    //         document.getElementById('togglePemdas').innerHTML = 'Pemdas';
+    //     }
+    // }
+
+    updateView(_textToUpdate){
         var inputText = _textToUpdate;
 
         if(Array.isArray(_textToUpdate)){
@@ -22,13 +26,41 @@ class View{
         if(inputText === Infinity){
             inputText = 'sys error'
         }
-        document.getElementById('input').innerHTML = inputText;
+        this.updateDisplay(inputText);
 
         //updates full line under linear/pemdas
-        if (_textToUpdate.length ? _textToUpdate.length : 0 !== 0 && Array.isArray(_textToUpdate)){
-            inputText = _textToUpdate.join(' ');
-            document.getElementsByClassName('inputDisplayText')[0].innerHTML = inputText;
+        if (_textToUpdate.length ? _textToUpdate.length : false && Array.isArray(_textToUpdate)){
+            let inputText = _textToUpdate.join(' ');
+            this.updateInputDisplay(inputText);
         }
+    }
+
+    updateDisplay(_updateText) {
+        document.getElementById('input').innerHTML = _updateText;
 
     }
+
+    updateInputDisplay(_updateText){
+        
+        //empty the div first.
+        let inputDisplay = document.getElementById("inputDisplay");
+        while(inputDisplay.firstChild){
+            inputDisplay.removeChild(inputDisplay.firstChild);
+        }
+
+        this.inputDisplay[this.currentIndex] = _updateText;
+        for(let i = 0; i <= this.currentIndex; i++){
+            let h3Element = document.createElement("h3")
+            h3Element.innerHTML = this.inputDisplay[i];
+            inputDisplay.appendChild(h3Element);
+            // document.getElementsByClassName('inputDisplayText')[0].innerHTML = this.inputDisplay.join('');  
+        }
+    }
+
+    handleReturn(_calcInput){
+        this.currentIndex +=1;
+        this.updateView(_calcInput);
+        this.currentIndex +=1;
+    }
+
 }
