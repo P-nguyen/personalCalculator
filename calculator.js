@@ -46,7 +46,7 @@ class Calculator {
         } else if (this.calcInput[lastInputIndex].length > 0) {
             this.calcInput[lastInputIndex] += _input;
         }
-        return this.view.updateDisplay(this.calcInput);
+        return this.view.updateView(this.calcInput);
     }
 
     handleOperator(_input) {
@@ -56,7 +56,7 @@ class Calculator {
             this.calcInput.pop();
         }
         this.calcInput.push(_input);
-        return this.view.updateDisplay(this.calcInput);        
+        return this.view.updateView(this.calcInput);        
     }
 
     handleClearButtons(_input) {
@@ -68,7 +68,7 @@ class Calculator {
             this.calcInput.pop();
             result = this.calcInput
         }
-        return this.view.updateDisplay(result);
+        return this.view.updateView(result);
     }
 
 
@@ -87,7 +87,7 @@ class Calculator {
             this.calcInput.push(result);
         }
         // this.calcInput.push(_input);
-        return this.view.updateDisplay(this.calcInput);   
+        return this.view.updateView(this.calcInput);   
     }
 
     AdvanceFeatureOperation(_type , _number){
@@ -151,9 +151,8 @@ class Calculator {
 
     //will always do math.
     handleEqual() {
-
         this.doMath()
-        return this.view.updateDisplay(this.calcInput[0]);
+        return this.view.handleReturn(this.calcInput);
     }
 
 
