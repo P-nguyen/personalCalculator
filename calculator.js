@@ -1,6 +1,6 @@
 class Calculator {
     constructor() {
-        this.view = new View();
+        this.view = new View(this);
 
         this.calcInput = [];
         this.lastNumber = null;
@@ -15,10 +15,10 @@ class Calculator {
 
     }
 
-    toggleCalcState() {
-        this.calcState = !this.calcState;
-        this.view.toggleMath(this.calcState);
-    }
+    // toggleCalcState() {
+    //     this.calcState = !this.calcState;
+    //     this.view.toggleMath(this.calcState);
+    // }
 
     isFloat(_inputNumStr) {// checks to see if number is a float.
         if (isNaN(_inputNumStr)) {
@@ -155,6 +155,9 @@ class Calculator {
         return this.view.handleReturn(this.calcInput);
     }
 
+    repeatInput( _input ){
+        this.calcInput = _input;
+    }
 
     linearDoMath() {
         var i = 1;
