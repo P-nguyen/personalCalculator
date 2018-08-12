@@ -1,7 +1,8 @@
 class View{
-    constructor(){
+    constructor(_calculator){
         this.inputDisplay = [];
         this.currentIndex = 0;
+        this.calculator = _calculator;
     }
 
     // toggleMath(state){
@@ -52,9 +53,15 @@ class View{
         for(let i = 0; i <= this.currentIndex; i++){
             let h3Element = document.createElement("h3")
             h3Element.innerHTML = this.inputDisplay[i];
+            h3Element.addEventListener( "click", ()=>{this.replaceInputViaController(this.inputDisplay[i])} );
             inputDisplay.appendChild(h3Element);
-            // document.getElementsByClassName('inputDisplayText')[0].innerHTML = this.inputDisplay.join('');  
         }
+    }
+
+    replaceInputViaController(_inputText){
+        console.log(this);
+        this.updateDisplay(_inputText);
+        this.calculator.calcInput = _inputText.split(' ');
     }
 
     handleReturn(_calcInput){
