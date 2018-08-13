@@ -71,7 +71,7 @@ class View{
 
     handleReturn(_calcInput){
         if(!this.inputDisplayList[0]){
-            this.inputDisplayList[0] = '' + this.calculator.lastNumber + ' ' + this.calculator.lastOperator + ' ' + this.inputDisplayList[1];
+            this.inputDisplayList[0] = '' + this.inputDisplayList[1] + ' ' + this.calculator.lastOperator + ' ' + this.calculator.lastNumber;
         }
         this.inputDisplayList.unshift('');
         this.updateView(_calcInput);
