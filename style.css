@@ -65,6 +65,7 @@ h3{
     display: inline-block;
     vertical-align: top;
     background-color: #dadada;
+    overflow: hidden;
 }
 
 .row{

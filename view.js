@@ -1,7 +1,7 @@
 class View{
     constructor(_calculator){
-        this.inputDisplay = [];
-        this.currentIndex = 0;
+        this.inputDisplayList = [];
+        // this.currentIndex = 0;
         this.calculator = _calculator;
     }
 
@@ -49,11 +49,16 @@ class View{
             inputDisplay.removeChild(inputDisplay.firstChild);
         }
 
-        this.inputDisplay[this.currentIndex] = _updateText;
-        for(let i = 0; i <= this.currentIndex; i++){
-            let h3Element = document.createElement("h3")
-            h3Element.innerHTML = this.inputDisplay[i];
-            h3Element.addEventListener( "click", ()=>{this.replaceInputViaController(this.inputDisplay[i])} );
+        this.inputDisplayList[0] = _updateText;
+        if(this.inputDisplayList.length > 20){
+            this.inputDisplayList = this.inputDisplayList.slice(0,20);
+        }
+        
+        //i starts at 1 because 0 is always empty.
+        for(let i = 0; i <= 20; i++){
+            let h3Element = document.createElement("h3");
+            h3Element.innerHTML = this.inputDisplayList[i];
+            h3Element.addEventListener( "click", ()=>{this.replaceInputViaController(this.inputDisplayList[i+1])} ); //we add i+1 because it needs to address the empty '' in the new array"....
             inputDisplay.appendChild(h3Element);
         }
     }
@@ -65,9 +70,12 @@ class View{
     }
 
     handleReturn(_calcInput){
-        this.currentIndex +=1;
+        if(!this.inputDisplayList[0]){
+            this.inputDisplayList[0] = '' + this.calculator.lastNumber + ' ' + this.calculator.lastOperator + ' ' + this.inputDisplayList[1];
+        }
+        this.inputDisplayList.unshift('');
         this.updateView(_calcInput);
-        this.currentIndex +=1;
+        this.inputDisplayList.unshift('');
     }
 
 }

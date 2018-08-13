@@ -252,8 +252,8 @@ class Calculator {
             //order of operations
         
         //order of operations
-        debugger;
         if(this.calcInput.length > 3){
+            debugger;
             this.pemdasDoMath();
         }
         debugger;
@@ -261,7 +261,6 @@ class Calculator {
         
         //the rest of the operators
         debugger;
- 
     }
     //1+2 x = 5
 
