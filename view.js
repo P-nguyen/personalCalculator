@@ -5,14 +5,6 @@ class View{
         this.calculator = _calculator;
     }
 
-    // toggleMath(state){
-    //     if (state) {
-    //         document.getElementById('togglePemdas').innerHTML = 'Linear';
-    //     } else {
-    //         document.getElementById('togglePemdas').innerHTML = 'Pemdas';
-    //     }
-    // }
-
     updateView(_textToUpdate){
         var inputText = _textToUpdate;
 
@@ -56,6 +48,9 @@ class View{
         
         //i starts at 1 because 0 is always empty.
         for(let i = 0; i <= 20; i++){
+            if(!this.inputDisplayList[i]){
+                return;
+            }
             let h3Element = document.createElement("h3");
             h3Element.innerHTML = this.inputDisplayList[i];
             h3Element.addEventListener( "click", ()=>{this.replaceInputViaController(this.inputDisplayList[i+1])} ); //we add i+1 because it needs to address the empty '' in the new array"....

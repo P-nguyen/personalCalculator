@@ -35,6 +35,9 @@ class Controller {
         let advance = document.querySelectorAll('.extended .button');
         this.addEventToMultiElements(advance, this.handleAdvance);
 
+        let parenthesis = document.querySelectorAll('.parenthesis .button');
+        this.addEventToMultiElements(parenthesis, this.handleParenthesis);
+
         // document.getElementById('togglePemdas').addEventListener("click", this.toggleCalcState);
 
     }
@@ -67,6 +70,11 @@ class Controller {
     handleAdvance(){
         var text = event.currentTarget.innerText;
         text = text.replace( /\r?\n|\r/g , '');
+        this.handleInput(text);
+    }
+
+    handleParenthesis(){
+        var text = event.currentTarget.innerText;
         this.handleInput(text);
     }
 
