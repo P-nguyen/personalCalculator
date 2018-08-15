@@ -8,6 +8,7 @@ class Controller {
         this.handleEqual = this.handleEqual.bind(this);
         // this.toggleCalcState = this.toggleCalcState.bind(this);
         this.handleAdvance = this.handleAdvance.bind(this);
+        this.handleParenthesis = this.handleParenthesis.bind(this);
         this.addEventhandlers();
     }
 
@@ -88,6 +89,8 @@ class Controller {
                 this.calculator.handleClearButtons(_textInput);
             }else if(_textInput === '=') {
                 this.calculator.handleEqual(_textInput);
+            }else if(_textInput === '(' || _textInput === ')'){
+                this.calculator.handleParenthesis(_textInput);
             }else if(_textInput === '÷' || _textInput === 'x' || _textInput === '-' || _textInput === '+'){
                 this.calculator.handleOperator(_textInput);
             }else{

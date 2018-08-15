@@ -90,6 +90,11 @@ class Calculator {
         return this.view.updateView(this.calcInput);   
     }
 
+    handleParenthesis(_input){
+        debugger;
+        this.calcInput.push(_input);
+    };
+
     AdvanceFeatureOperation(_type , _number){
         let output;
         switch (_type) {
