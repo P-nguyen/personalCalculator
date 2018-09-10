@@ -63,9 +63,12 @@ class View{
         this.updateDisplay(_inputText);
         this.calculator.resetCalculatorVariables();
         this.calculator.calcInput = _inputText.split(' ');
+        this.inputDisplayList[0] = _inputText;
+        
     }
 
     handleReturn(_calcInput){
+        debugger;
         if(!this.inputDisplayList[0]){
             this.inputDisplayList[0] = '' + this.inputDisplayList[1] + ' ' + this.calculator.lastOperator + ' ' + this.calculator.lastNumber;
         }
