@@ -344,7 +344,6 @@ class Calculator {
     doMath(){
         //()
             //order of operations
-        debugger;
         if( this.calcInput[this.calcInput.length-1] == '(' ){
             return this.view.updateView(this.calcInput);
         }else{
