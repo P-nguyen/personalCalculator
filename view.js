@@ -61,6 +61,7 @@ class View{
     replaceInputViaController(_inputText){
         console.log(this);
         this.updateDisplay(_inputText);
+        this.calculator.resetCalculatorVariables();
         this.calculator.calcInput = _inputText.split(' ');
     }
 
