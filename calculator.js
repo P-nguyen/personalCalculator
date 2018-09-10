@@ -6,12 +6,14 @@ class Calculator {
         this.lastNumber = null;
         this.lastOperator = null;
         this.calcState = true;
+        this.firstRun = false;
     }
 
     resetCalculatorVariables() {
         this.calcInput = [];
         this.lastOperator = null;
         this.lastNumber = null;
+        this.firstRun = false;
 
     }
 
@@ -91,8 +93,27 @@ class Calculator {
     }
 
     handleParenthesis(_input){
-        debugger;
-        this.calcInput.push(_input);
+        //check array backwards to see if there is a ( or ) depending on what is clicked
+        let parentesisCount = 0;
+
+        if(this.calcInput[this.calcInput.length-1] == '('){
+            return;
+        }
+
+        for( let i = this.calcInput.length-1 ; i >= 0; i--){
+            if( this.calcInput[i] == '(' || this.calcInput[i] == ')' ){
+                parentesisCount++;
+                if (_input != this.calcInput[i]){
+                    this.calcInput.push(_input);
+                }
+                break;
+            }
+        }
+        if( parentesisCount == 0 && _input == '(' ){
+            this.calcInput.push(_input);
+        }
+        return this.view.updateView(this.calcInput);
+
     };
 
     AdvanceFeatureOperation(_type , _number){
@@ -160,52 +181,53 @@ class Calculator {
         return this.view.handleReturn(this.calcInput);
     }
 
-    repeatInput( _input ){
-        this.calcInput = _input;
-    }
+    // repeatInput( _input ){
+    //     this.calcInput = _input;
+    // }
 
-    linearDoMath() {
+    linearDoMath( _calcInput) {
         var i = 1;
 
         if (this.lastNumber == null && this.lastOperator === null){
-            if( parseFloat(this.calcInput[this.calcInput.length-1])){
+            if( parseFloat(_calcInput[_calcInput.length-1])){
                 //if this ends in the number / then don't worry about it.
-                this.lastNumber = this.calcInput[this.calcInput.length-1];
-                this.lastOperator = this.calcInput[this.calcInput.length-2];
+                this.lastNumber = _calcInput[_calcInput.length-1];
+                this.lastOperator = _calcInput[_calcInput.length-2];
             }else{
                 //if this ends in an operator then push the number to the end.
-                this.lastNumber = this.calcInput[this.calcInput.length-2];
-                this.lastOperator = this.calcInput[this.calcInput.length-1];
+                this.lastNumber = _calcInput[_calcInput.length-2];
+                this.lastOperator = _calcInput[_calcInput.length-1];
             }   
         }       
 
 
         //this needs to check for 3x or 3- or 3+ as well
-        if (this.calcInput.length === 1){
-            this.calcInput.push(this.lastOperator,this.lastNumber);
-        }else if ( this.calcInput.length === 2){
-            this.calcInput.push(this.lastNumber);
+        if (_calcInput.length === 1 && this.firstRun === true){
+            _calcInput.push(this.lastOperator,this.lastNumber);
+        }else if ( _calcInput.length === 2){
+            _calcInput.push(this.lastNumber);
         }
 
-        while(i < this.calcInput.length-1){
+        while(i < _calcInput.length-1){
             
-            let operator = this.calcInput[i];
-            let secondNum = this.calcInput[i+1]; //this should only apply if you hit ='s again. otherwise its taken care of in in multiplications.
+            let operator = _calcInput[i];
+            let secondNum = _calcInput[i+1]; //this should only apply if you hit ='s again. otherwise its taken care of in in multiplications.
 
-            let replaceMathVar = this.operatorLogic(this.calcInput[i - 1], operator, secondNum);
-            this.calcInput.splice(i - 1, 3, replaceMathVar);
+            let replaceMathVar = this.operatorLogic(_calcInput[i - 1], operator, secondNum);
+            _calcInput.splice(i - 1, 3, replaceMathVar);
     
         }
+        return _calcInput;
     }
 
-    pemdasDoMath() {
+    pemdasDoMath(_calcInput) {
         
         //check the last two numbers after all pemdas math is done.
         if (this.lastNumber == null && this.lastOperator === null){
-            if( parseFloat(this.calcInput[this.calcInput.length-1])){
+            if( parseFloat(_calcInput[_calcInput.length-1])){
                 //if this ends in the number / then don't worry about it.
-                this.lastNumber = this.calcInput[this.calcInput.length-1];
-                this.lastOperator = this.calcInput[this.calcInput.length-2];
+                this.lastNumber = _calcInput[_calcInput.length-1];
+                this.lastOperator = _calcInput[_calcInput.length-2];
             }
             // else{
             //     //if this ends in an operator then push the number to the end.
@@ -216,19 +238,19 @@ class Calculator {
         }
 
         var i = 1;
-        while(i <= this.calcInput.length-1){
-            if(this.calcInput[i] === 'x' || this.calcInput[i] === '÷'){
-                let secondNum = this.calcInput[i+1] ? this.calcInput[i+1] : this.lastNumber = this.calcInput[i-1];
-                if(this.calcInput[i+1]){
-                    secondNum = this.calcInput[i+1];
+        while(i <= _calcInput.length-1){
+            if(_calcInput[i] === 'x' || _calcInput[i] === '÷'){
+                let secondNum = _calcInput[i+1] ? _calcInput[i+1] : this.lastNumber = _calcInput[i-1];
+                if(_calcInput[i+1]){
+                    secondNum = _calcInput[i+1];
                 }else{
-                    secondNum = this.calcInput[i-1];
+                    secondNum = _calcInput[i-1];
                     this.lastNumber = secondNum;
-                    this.lastOperator = this.calcInput[i];
+                    this.lastOperator = _calcInput[i];
                 }
 
-                let replaceMathVar = this.operatorLogic(this.calcInput[i - 1], this.calcInput[i], secondNum);
-                this.calcInput.splice(i - 1, 3, replaceMathVar);
+                let replaceMathVar = this.operatorLogic(_calcInput[i - 1], _calcInput[i], secondNum);
+                _calcInput.splice(i - 1, 3, replaceMathVar);
                 i = 1;
             }
             i +=2;
@@ -240,6 +262,7 @@ class Calculator {
         //     let replaceMathVar = this.operatorLogic(this.calcInput[this.calcInput.length - 2], this.lastOperator, this.lastNumber);
         //     this.calcInput.splice(this.calcInput.length - 2, 2, replaceMathVar);
         // }
+        return _calcInput;
     }
 
     //1+2x3+ = 14 because 1+2x3 = 7 then the + adds another 7. !!! if your add  at the end its needs to add all of it.....
@@ -247,25 +270,97 @@ class Calculator {
     //2+(2x3) = 8 = 48 ===== it used 6x
     //need to clear lastnumber and operatorer if new input is pressed. //DONE?
 
-    checkParenthesis(){
+    doParenthesis(_calcInput){
+        
+        let parentesisCheck = false;
         //look through array
-        //if left( is found then look for right) and do math here first and replace.
+        //check to see if you need to close any parentesis
+
+        for (let i = _calcInput.length-1; i>=0; i-- ){
+            //if there is a parent then skip this
+            if(_calcInput[i] == ')'){
+                parentesisCheck = !parentesisCheck;
+                break;
+            }
+
+            //if there is an open paren then add ) to the end to close it
+            if(_calcInput[i] == '('){
+                _calcInput.push(')');
+                parentesisCheck = !parentesisCheck;
+                break;
+            }
+        }
+
+        //once done then separete all array into new sections to replace
+
+        //while there are still parenthesis
+            //search through all and record current paren
+            //do math and replace
+            //loop.
+        var index = 0
+        var recorded = [];
+        var startParen = null;
+        var insideParen = false;
+
+        while(parentesisCheck){
+
+            if( _calcInput[index] == '(' ){
+                insideParen = true;
+                startParen = index;
+                index++;
+            }else if (_calcInput[index] == ')'){
+                //do and replace math.
+                let toRemove = recorded.length + 2;
+                recorded = this.pemdasDoMath(recorded);
+                recorded = this.linearDoMath(recorded);
+
+                insideParen = false;
+
+                _calcInput.splice(startParen,toRemove,recorded[0]);
+                index = 0;
+                startParen = null;
+            }
+
+            if (insideParen){
+                recorded.push(_calcInput[index]);
+            }
+
+            index++;
+            if( index == _calcInput.length ){parentesisCheck = false;}
+        }
+    
+
+        //after all is done loop through one more time to see if there are missing operantes
+            //if so then insert a * to multiply.
+        for (let k = 1; k < _calcInput.length; k+=2){
+            if(!isNaN(_calcInput[k])){
+                _calcInput.splice(k,0,'x');
+            }
+        }
+
+        return _calcInput;
     }
 
     doMath(){
         //()
             //order of operations
-        
+        debugger;
+        if( this.calcInput[this.calcInput.length-1] == '(' ){
+            return this.view.updateView(this.calcInput);
+        }else{
+            this.calcInput = this.doParenthesis(this.calcInput);
+        }
+
+
         //order of operations
         if(this.calcInput.length > 3){
-            debugger;
-            this.pemdasDoMath();
+            this.calcInput = this.pemdasDoMath(this.calcInput);
         }
-        debugger;
-        this.linearDoMath();
+        this.calcInput = this.linearDoMath(this.calcInput);
         
         //the rest of the operators
-        debugger;
+        this.firstRun = true;
+        return;
     }
     //1+2 x = 5
 
