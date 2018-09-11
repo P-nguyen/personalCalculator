@@ -49,7 +49,7 @@ h3{
     position: relative;
     left: 0px;
 
-    transition: left 0.25s linear;
+    transition: left 0.5s linear;
 }
 
 #calculatorBody{
@@ -72,7 +72,7 @@ h3{
     position: relative;
     left: 0px;
 
-    transition: left 0.25s linear;
+    transition: left 0.5s linear;
 }
 
 .row{
@@ -125,7 +125,7 @@ h3{
 }
 
 /* smoother transition */
-@media screen and (max-width: 1050px){
+@media screen and (max-width: 1150px){
     #advanceFeatures{
         left: -150vw;
         position: absolute;
