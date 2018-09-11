@@ -8,6 +8,7 @@ class View{
     updateView(_textToUpdate){
         var inputText = _textToUpdate;
 
+        // .toPrecision(precision)
         if(Array.isArray(_textToUpdate)){
             if (inputText[0] === undefined){
                 inputText = ['0'];
@@ -68,13 +69,29 @@ class View{
     }
 
     handleReturn(_calcInput){
-        debugger;
+        let precision = this.findInputWidth();
         if(!this.inputDisplayList[0]){
             this.inputDisplayList[0] = '' + this.inputDisplayList[1] + ' ' + this.calculator.lastOperator + ' ' + this.calculator.lastNumber;
         }
         this.inputDisplayList.unshift('');
-        this.updateView(_calcInput);
+        this.updateView([_calcInput[0].toPrecision(precision)]);
         this.inputDisplayList.unshift('');
+    }
+
+     findInputWidth(){
+        let inputWidth = document.getElementById("input").offsetWidth;
+        let precision = 5;
+        if(inputWidth < 350){
+            precision = 5;
+        }else if (inputWidth < 450){
+            precision = 19;
+        }else if (inputWidth < 1150){
+            precision = 13;
+        }else{
+            precision = 16;
+        }
+
+        return precision;
     }
 
 }

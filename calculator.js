@@ -181,10 +181,6 @@ class Calculator {
         return this.view.handleReturn(this.calcInput);
     }
 
-    // repeatInput( _input ){
-    //     this.calcInput = _input;
-    // }
-
     linearDoMath( _calcInput) {
         var i = 1;
 
