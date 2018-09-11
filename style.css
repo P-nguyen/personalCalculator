@@ -32,8 +32,8 @@ h3{
 #input{
     background-color: #4c4c4c;
     width: 66%;
-    height: 20%;
-    font-size: 7vw;
+    font-size: 9vh;
+    height: 10vh;
     text-align: right;
     box-sizing: border-box;
     padding-right: 5%;
@@ -115,4 +115,49 @@ h3{
 
 .button:hover{
     color: orangered;
+}
+
+@media screen and (max-width: 992px) {
+    #advanceFeatures{
+        display: none;
+    }
+    #input, #calculatorBody, #inputDisplay{
+        width: 50%;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+
+    #gutter{
+        margin: 0 20%;
+    }
+
+    #input, #calculatorBody, #inputDisplay{
+        width: 100%;
+    }
+    
+    #input{
+        height: 10vh;
+    }
+
+    #calculatorBody, #inputDisplay{
+        height: 40vh;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+
+    #calculatorBody{
+        height: 40vh;
+    }
+
+    #inputDisplay{
+        display: none;
+    }
+
+    .button{
+        font-size: 10vw;
+    }
 }
