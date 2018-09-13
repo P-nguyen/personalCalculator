@@ -8,7 +8,6 @@ class View{
     updateView(_textToUpdate){
         var inputText = _textToUpdate;
 
-        // .toPrecision(precision)
         if(Array.isArray(_textToUpdate)){
             if (inputText[0] === undefined){
                 inputText = ['0'];
@@ -16,15 +15,21 @@ class View{
                 inputText = _textToUpdate[_textToUpdate.length - 1];
             }
         }
-
-        if(inputText === Infinity){
-            inputText = 'sys error'
+        
+        debugger;
+        if(inputText === "Infinity" || inputText === "NaN"){
+            inputText = ['Sys Error'];
+            this.calculator.resetCalculatorVariables();
         }
+
         this.updateDisplay(inputText);
 
         //updates full line under linear/pemdas
-        if (_textToUpdate.length ? _textToUpdate.length : false && Array.isArray(_textToUpdate)){
-            let inputText = _textToUpdate.join(' ');
+        // if (_textToUpdate.length ? _textToUpdate.length : false && Array.isArray(_textToUpdate)){
+        if (_textToUpdate.length > 1){
+            inputText = _textToUpdate.join(' ');
+            this.updateInputDisplay(inputText);
+        }else{
             this.updateInputDisplay(inputText);
         }
     }
@@ -35,7 +40,6 @@ class View{
     }
 
     updateInputDisplay(_updateText){
-        
         //empty the div first.
         let inputDisplay = document.getElementById("inputDisplay");
         while(inputDisplay.firstChild){
@@ -70,11 +74,23 @@ class View{
 
     handleReturn(_calcInput){
         let precision = this.findInputWidth();
-        if(!this.inputDisplayList[0]){
+
+        console.log('inputdisplaylist: ', this.inputDisplayList[0]);
+        console.log(_calcInput);
+        if(!this.inputDisplayList[0] && !_calcInput[0]=="Sys Error"){
             this.inputDisplayList[0] = '' + this.inputDisplayList[1] + ' ' + this.calculator.lastOperator + ' ' + this.calculator.lastNumber;
         }
+
         this.inputDisplayList.unshift('');
-        this.updateView([_calcInput[0].toPrecision(precision)]);
+
+        if(!isNaN(_calcInput[0])){
+            _calcInput[0]= _calcInput[0].toPrecision(precision);
+        }else{
+            _calcInput[0] = 'Sys Error';
+            this.calculator.resetCalculatorVariables();
+        }
+
+        this.updateView(_calcInput);
         this.inputDisplayList.unshift('');
     }
 

@@ -201,6 +201,7 @@ class Calculator {
         if (_calcInput.length === 1 && this.firstRun === true){
             _calcInput.push(this.lastOperator,this.lastNumber);
         }else if ( _calcInput.length === 2){
+            this.lastNumber = _calcInput[_calcInput.length-2];
             _calcInput.push(this.lastNumber);
         }
 
@@ -338,6 +339,7 @@ class Calculator {
     }
 
     doMath(){
+
         //()
             //order of operations
         if( this.calcInput[this.calcInput.length-1] == '(' ){
@@ -355,6 +357,7 @@ class Calculator {
         
         //the rest of the operators
         this.firstRun = true;
+
         return;
     }
     //1+2 x = 5
