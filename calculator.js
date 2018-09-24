@@ -117,6 +117,7 @@ class Calculator {
     };
 
     AdvanceFeatureOperation(_type , _number){
+
         let output;
         switch (_type) {
             case 'e':
@@ -170,6 +171,10 @@ class Calculator {
             case '3√x':
                 output = Math.pow(_number, 1/3);
                 break;
+        }
+
+        if(!output){
+            output = 0;
         }
 
         return output;
