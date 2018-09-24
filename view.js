@@ -74,8 +74,6 @@ class View{
     handleReturn(_calcInput){
         let precision = this.findInputWidth();
 
-        console.log('inputdisplaylist: ', this.inputDisplayList[0]);
-        console.log(_calcInput);
         if(!this.inputDisplayList[0] && _calcInput[0] !== "Sys Error"){
             this.inputDisplayList[0] = '' + this.inputDisplayList[1] + ' ' + this.calculator.lastOperator + ' ' + this.calculator.lastNumber;
         }
@@ -83,8 +81,16 @@ class View{
         this.inputDisplayList.unshift('');
 
         if(!isNaN(_calcInput[0])){
+            console.log('precision', precision);
             _calcInput[0] = _calcInput[0].toPrecision(precision);
+            console.log('TO precision', _calcInput[0]);
+
             _calcInput[0] = Number(_calcInput[0]);
+            console.log('AFTER Number', _calcInput[0]);
+
+            if( _calcInput[0].toLocaleString().length > precision){
+                _calcInput[0] = _calcInput[0].toExponential();
+            }
         }else{
             _calcInput[0] = 'Sys Error';
             this.calculator.resetCalculatorVariables();
@@ -96,15 +102,15 @@ class View{
 
      findInputWidth(){
         let inputWidth = document.getElementById("input").offsetWidth;
-        let precision = 5;
+        let precision = 2;
         if(inputWidth < 350){
-            precision = 5;
+            precision = 2;
         }else if (inputWidth < 450){
-            precision = 19;
+            precision = 6;
         }else if (inputWidth < 1150){
-            precision = 13;
+            precision = 9;
         }else{
-            precision = 16;
+            precision = 13;
         }
 
         return precision;
