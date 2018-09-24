@@ -40,7 +40,6 @@ class View{
 
     updateInputDisplay(_updateText){
         //empty the div first.
-        debugger;
         let inputDisplay = document.getElementById("inputDisplay");
         while(inputDisplay.firstChild){
             inputDisplay.removeChild(inputDisplay.firstChild);
@@ -84,13 +83,14 @@ class View{
         this.inputDisplayList.unshift('');
 
         if(!isNaN(_calcInput[0])){
-            _calcInput[0]= _calcInput[0].toPrecision(precision);
+            _calcInput[0] = _calcInput[0].toPrecision(precision);
+            _calcInput[0] = Number(_calcInput[0]);
         }else{
             _calcInput[0] = 'Sys Error';
             this.calculator.resetCalculatorVariables();
         }
 
-        this.updateView(Number(_calcInput));
+        this.updateView(_calcInput);
         this.inputDisplayList.unshift('');
     }
 
