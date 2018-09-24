@@ -1,6 +1,7 @@
 body{
     font-family: 'Roboto', sans-serif;
     font-size: 0;
+    overflow: hidden;
 }
 
 h1{
@@ -63,7 +64,7 @@ h3{
 }
 
 #inputDisplay{
-    width: 34%;
+    width: 33%;
     height: 40vw;
     display: inline-block;
     vertical-align: top;
