@@ -31,6 +31,7 @@ class Calculator {
     }
 
     handleNumbers(_input) {
+        debugger;
         var lastInputIndex = this.calcInput.length - 1;
 
         if (typeof this.calcInput[this.calcInput.length - 1] === 'number') {
