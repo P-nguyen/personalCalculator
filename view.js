@@ -16,7 +16,7 @@ class View{
             }
         }
 
-        if(inputText === "Infinity" || inputText === -Infinity || inputText === "NaN"){
+        if(inputText === "Infinity" || inputText === Infinity || inputText === -Infinity || inputText === "NaN"){
             inputText = ['Sys Error'];
             this.calculator.resetCalculatorVariables();
         }
@@ -40,6 +40,7 @@ class View{
 
     updateInputDisplay(_updateText){
         //empty the div first.
+        debugger;
         let inputDisplay = document.getElementById("inputDisplay");
         while(inputDisplay.firstChild){
             inputDisplay.removeChild(inputDisplay.firstChild);
@@ -76,7 +77,7 @@ class View{
 
         console.log('inputdisplaylist: ', this.inputDisplayList[0]);
         console.log(_calcInput);
-        if(!this.inputDisplayList[0] && !_calcInput[0]=="Sys Error"){
+        if(!this.inputDisplayList[0] && _calcInput[0] !== "Sys Error"){
             this.inputDisplayList[0] = '' + this.inputDisplayList[1] + ' ' + this.calculator.lastOperator + ' ' + this.calculator.lastNumber;
         }
 
@@ -89,7 +90,7 @@ class View{
             this.calculator.resetCalculatorVariables();
         }
 
-        this.updateView(_calcInput);
+        this.updateView(Number(_calcInput));
         this.inputDisplayList.unshift('');
     }
 

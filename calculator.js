@@ -183,6 +183,7 @@ class Calculator {
     //will always do math.
     handleEqual() {
         this.doMath()
+        debugger;
         return this.view.handleReturn(this.calcInput);
     }
 
