@@ -15,9 +15,8 @@ class View{
                 inputText = _textToUpdate[_textToUpdate.length - 1];
             }
         }
-        
-        debugger;
-        if(inputText === "Infinity" || inputText === "NaN"){
+
+        if(inputText === "Infinity" || inputText === -Infinity || inputText === "NaN"){
             inputText = ['Sys Error'];
             this.calculator.resetCalculatorVariables();
         }
