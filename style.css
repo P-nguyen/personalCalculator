@@ -26,6 +26,10 @@ h3{
     padding-right: 5%;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 #gutter{
     margin: 0 5%;
 }
