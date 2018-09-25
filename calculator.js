@@ -123,7 +123,7 @@ class Calculator {
             case 'e':
                 output = Math.E;
                 break;
-            case '∏':
+            case 'π':
                 output = Math.PI;
                 break;
             case '√':

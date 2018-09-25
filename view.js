@@ -67,7 +67,11 @@ class View{
         console.log(this);
         this.updateDisplay(_inputText);
         this.calculator.resetCalculatorVariables();
-        this.calculator.calcInput = _inputText.split(' ');
+        try{
+            this.calculator.calcInput = _inputText.split(' ');
+        }
+        catch(err){
+        }
         this.inputDisplayList[0] = _inputText;
         
     }
@@ -75,7 +79,7 @@ class View{
     handleReturn(_calcInput){
         let precision = this.findInputWidth();
 
-        if(!this.inputDisplayList[0] && _calcInput[0] !== "Sys Error"){
+        if(!this.inputDisplayList[0] && _calcInput[0] !== "Sys Error" && _calcInput[0] !== undefined){
             this.inputDisplayList[0] = '' + this.inputDisplayList[1] + ' ' + this.calculator.lastOperator + ' ' + this.calculator.lastNumber;
         }
 
