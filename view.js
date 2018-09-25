@@ -88,8 +88,8 @@ class View{
             _calcInput[0] = Number(_calcInput[0]);
             console.log('AFTER Number', _calcInput[0]);
 
-            if( _calcInput[0].toLocaleString().length > precision){
-                _calcInput[0] = _calcInput[0].toExponential();
+            if( _calcInput[0].toString().length > precision){
+                _calcInput[0] = _calcInput[0].toExponential(precision);
             }
         }else{
             _calcInput[0] = 'Sys Error';
