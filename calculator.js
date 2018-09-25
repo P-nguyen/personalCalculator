@@ -31,7 +31,6 @@ class Calculator {
     }
 
     handleNumbers(_input) {
-        debugger;
         var lastInputIndex = this.calcInput.length - 1;
 
         if (typeof this.calcInput[this.calcInput.length - 1] === 'number') {
@@ -184,7 +183,6 @@ class Calculator {
     //will always do math.
     handleEqual() {
         this.doMath()
-        debugger;
         return this.view.handleReturn(this.calcInput);
     }
 
