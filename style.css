@@ -92,10 +92,17 @@ h3{
     position: relative;
     top: 1%;
     left: 1%;
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+    text-align: center;
 
+}
+
+.button div{
+    top: 50%;
+    position: relative;
+    transform: translatey(-50%);
 }
 
 .parenthesis, .clear, .clearEntry, .operators, .numbers, .equal, .extended{
