@@ -56,6 +56,7 @@ class View{
                 return;
             }
             let h3Element = document.createElement("h3");
+            h3Element.className = "pointer";
             h3Element.innerHTML = this.inputDisplayList[i];
             h3Element.addEventListener( "click", ()=>{this.replaceInputViaController(this.inputDisplayList[i+1])} ); //we add i+1 because it needs to address the empty '' in the new array"....
             inputDisplay.appendChild(h3Element);
