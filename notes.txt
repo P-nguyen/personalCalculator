@@ -1,3 +1,11 @@
+bugs:
+1/0 says infinity
+0/0 says NAN
+1+1+=+= says only 4 when it should be 8
+press = and get a bunch of undefined
+3= gets a bunch of undefined.
+
+
 display log with clickable history.
 responsiveness.
 add in multiplication symbol
@@ -11,3 +19,37 @@ consistent error.
 fix number length
 add in portfolio request
 https://docs.google.com/document/d/e/2PACX-1vSWDHcDME6DLYzuzSU-6Y-azG1DUXNtkzlfhmUTkmwrp1aue41fw8wwR5vIIBvRRpmURGw5KFIunGcS/pub
+
+new issue
+do math does the += operation twice.....
+
+x!
+ln - e to the x
+log - 10 to the x
+sqroot - x 2
+x to the y - y sqroot to the x
+
+
+sin to inverse sin
+cos to inverse cos
+tan to inverse tan
+
+pie
+e = euler's number - math constant
+
+
+
+sin / sin-1 / ln / eX
+cos / cos -1 / log / 10x
+tan / tan-1 / sqroot / X2
+pie / e / x! / y-sqrt-x
+
+
+
+number precision so it doesnt go out of bounds
+fix input
+curser to hand
+fix overflow from input so no scroll
+
+percision is still saved for somereason after you hit return and try to add a new number
+need to reset the number so it doen'st add to 5.00000

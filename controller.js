@@ -6,7 +6,9 @@ class Controller {
         this.handleOperator = this.handleOperator.bind(this);
         this.handleClearButtons = this.handleClearButtons.bind(this);
         this.handleEqual = this.handleEqual.bind(this);
-        this.toggleCalcState = this.toggleCalcState.bind(this);
+        // this.toggleCalcState = this.toggleCalcState.bind(this);
+        this.handleAdvance = this.handleAdvance.bind(this);
+        this.handleParenthesis = this.handleParenthesis.bind(this);
         this.addEventhandlers();
     }
 
@@ -31,7 +33,13 @@ class Controller {
         let equal = document.querySelectorAll('.equal .button');
         this.addEventToMultiElements(equal, this.handleEqual);
 
-        document.getElementById('togglePemdas').addEventListener("click", this.toggleCalcState);
+        let advance = document.querySelectorAll('.extended .button');
+        this.addEventToMultiElements(advance, this.handleAdvance);
+
+        let parenthesis = document.querySelectorAll('.parenthesis .button');
+        this.addEventToMultiElements(parenthesis, this.handleParenthesis);
+
+        // document.getElementById('togglePemdas').addEventListener("click", this.toggleCalcState);
 
     }
 
@@ -60,6 +68,16 @@ class Controller {
         this.handleInput(text);
     }
 
+    handleAdvance(){
+        var text = event.currentTarget.innerText;
+        text = text.replace( /\r?\n|\r/g , '');
+        this.handleInput(text);
+    }
+
+    handleParenthesis(){
+        var text = event.currentTarget.innerText;
+        this.handleInput(text);
+    }
 
     handleInput(_textInput){
         var result;
@@ -71,8 +89,12 @@ class Controller {
                 this.calculator.handleClearButtons(_textInput);
             }else if(_textInput === '=') {
                 this.calculator.handleEqual(_textInput);
-            }else{
+            }else if(_textInput === '(' || _textInput === ')'){
+                this.calculator.handleParenthesis(_textInput);
+            }else if(_textInput === '÷' || _textInput === 'x' || _textInput === '-' || _textInput === '+'){
                 this.calculator.handleOperator(_textInput);
+            }else{
+                this.calculator.handleAdvanceFeatures(_textInput);
             }
         }
     }
