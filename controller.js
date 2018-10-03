@@ -2,13 +2,9 @@ class Controller {
     constructor() {
         this.calculator = new Calculator();
 
-        this.handleNumbers = this.handleNumbers.bind(this);
-        this.handleOperator = this.handleOperator.bind(this);
-        this.handleClearButtons = this.handleClearButtons.bind(this);
-        this.handleEqual = this.handleEqual.bind(this);
+        this.handleButtonPress = this.handleButtonPress.bind(this);
         // this.toggleCalcState = this.toggleCalcState.bind(this);
         this.handleAdvance = this.handleAdvance.bind(this);
-        this.handleParenthesis = this.handleParenthesis.bind(this);
         this.addEventhandlers();
     }
 
@@ -22,24 +18,22 @@ class Controller {
 
     addEventhandlers() {
         let numbers = document.querySelectorAll('.numbers .button');
-        this.addEventToMultiElements(numbers, this.handleNumbers);
+        this.addEventToMultiElements(numbers, this.handleButtonPress);
 
         let operators = document.querySelectorAll('.operators .button');
-        this.addEventToMultiElements(operators, this.handleOperator);
+        this.addEventToMultiElements(operators, this.handleButtonPress);
 
         let clearEntry = document.querySelectorAll('.clearEntry .button');
-        this.addEventToMultiElements(clearEntry, this.handleClearButtons);
+        this.addEventToMultiElements(clearEntry, this.handleButtonPress);
 
         let equal = document.querySelectorAll('.equal .button');
-        this.addEventToMultiElements(equal, this.handleEqual);
+        this.addEventToMultiElements(equal, this.handleButtonPress);
 
         let advance = document.querySelectorAll('.extended .button');
         this.addEventToMultiElements(advance, this.handleAdvance);
 
         let parenthesis = document.querySelectorAll('.parenthesis .button');
-        this.addEventToMultiElements(parenthesis, this.handleParenthesis);
-
-        // document.getElementById('togglePemdas').addEventListener("click", this.toggleCalcState);
+        this.addEventToMultiElements(parenthesis, this.handleButtonPress);
 
     }
 
@@ -48,34 +42,14 @@ class Controller {
 
     }
 
-    handleNumbers(event) {
-        var text = event.currentTarget.innerText;
+    handleButtonPress(event) {
+        var text = event.target.innerText;
         this.handleInput(text);
-    }
-
-    handleOperator(event) {
-        var text = event.currentTarget.innerText;
-        this.handleInput(text);
-    }
-
-    handleClearButtons() {
-        var text = event.currentTarget.innerText;
-        this.handleInput(text);
-    }
-
-    handleEqual() {
-        var text = event.currentTarget.innerText;
-        this.handleInput(text);
-    }
+    }    
 
     handleAdvance(){
         var text = event.currentTarget.innerText;
         text = text.replace( /\r?\n|\r/g , '');
-        this.handleInput(text);
-    }
-
-    handleParenthesis(){
-        var text = event.currentTarget.innerText;
         this.handleInput(text);
     }
 

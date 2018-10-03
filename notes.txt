@@ -46,10 +46,10 @@ pie / e / x! / y-sqrt-x
 
 
 
-number precision so it doesnt go out of bounds
-fix input
-curser to hand
-fix overflow from input so no scroll
+**number precision so it doesnt go out of bounds
+**fix input
+**curser to hand
+**fix overflow from input so no scroll
 
-percision is still saved for somereason after you hit return and try to add a new number
-need to reset the number so it doen'st add to 5.00000
+**percision is still saved for somereason after you hit return and try to add a new number
+**need to reset the number so it doen'st add to 5.00000
