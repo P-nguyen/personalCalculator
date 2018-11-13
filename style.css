@@ -105,6 +105,14 @@ h3{
     transform: translatey(-50%);
 }
 
+.numbers .button:active, .parenthesis .button:active, .clear .button:active, .clearEntry .button:active, .equal .button:active{
+    background-color: #bdbdbd;
+}
+
+.operators .button:active, .extended .button:active{
+    background-color: #e2822e;
+}
+
 .parenthesis, .clear, .clearEntry, .operators, .numbers, .equal, .extended{
     width: 25%;
     height: 100%;
