@@ -3,6 +3,7 @@ class View{
         this.inputDisplayList = [];
         // this.currentIndex = 0;
         this.calculator = _calculator;
+        this.resizedInput = this.resizedInput.bind(this);
     }
 
     updateView(_textToUpdate){
@@ -26,7 +27,8 @@ class View{
         //updates full line under linear/pemdas
         // if (_textToUpdate.length ? _textToUpdate.length : false && Array.isArray(_textToUpdate)){
         if (_textToUpdate.length > 1){
-            inputText = _textToUpdate.join(' ');
+            try{ inputText = _textToUpdate.join(' '); 
+            }catch(err){}
             this.updateInputDisplay(inputText);
         }else{
             this.updateInputDisplay(inputText);
@@ -85,24 +87,37 @@ class View{
 
         this.inputDisplayList.unshift('');
 
-        if(!isNaN(_calcInput[0])){
-            console.log('precision', precision);
-            _calcInput[0] = _calcInput[0].toPrecision(precision);
-            console.log('TO precision', _calcInput[0]);
-
-            _calcInput[0] = Number(_calcInput[0]);
-            console.log('AFTER Number', _calcInput[0]);
-
-            if( _calcInput[0].toString().length > precision){
-                _calcInput[0] = _calcInput[0].toExponential(precision);
-            }
+        var calcOutput = _calcInput.slice();
+        if(!isNaN(calcOutput[0])){
+            calcOutput[0] = this.reduceLength(calcOutput[0], precision);
         }else{
             _calcInput[0] = 'Sys Error';
             this.calculator.resetCalculatorVariables();
         }
 
-        this.updateView(_calcInput);
+        this.updateView(calcOutput);
         this.inputDisplayList.unshift('');
+    }
+
+    reduceLength( number, precision ){
+        // console.log('precision', precision);
+        number = number.toPrecision(precision);
+        // console.log('TO precision', number);
+
+        number = Number(number);
+        // console.log('AFTER Number', number);
+
+        if( number.toString().length > precision){
+            number = number.toExponential(precision);
+        }
+        return number;
+    }
+
+    resizedInput(){
+        // console.log(this.calculator.calcInput);
+        let precision = this.findInputWidth();
+        let updatedInput = this.reduceLength(this.calculator.calcInput[0], precision);
+        this.updateView(updatedInput);
     }
 
      findInputWidth(){
