@@ -58,6 +58,8 @@ class Calculator {
             this.calcInput.pop();
         }
         this.calcInput.push(_input);
+        this.lastNumber = null;
+        this.lastOperator = null;
         return this.view.updateView(this.calcInput);        
     }
 
@@ -182,6 +184,7 @@ class Calculator {
 
     //will always do math.
     handleEqual() {
+        debugger;
         this.doMath()
         return this.view.handleReturn(this.calcInput);
     }
