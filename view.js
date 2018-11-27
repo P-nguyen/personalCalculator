@@ -54,7 +54,7 @@ class View{
         
         //i starts at 1 because 0 is always empty.
         for(let i = 0; i <= 20; i++){
-            if(!this.inputDisplayList[i]){
+            if(this.inputDisplayList[i] === undefined){
                 return;
             }
             let h3Element = document.createElement("h3");
